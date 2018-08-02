@@ -2,6 +2,7 @@ function Observer(data) {
     this.data = data;
     this.walk(data);
 }
+
 Observer.prototype = {
     walk: function(data) {
         var me = this;
@@ -39,20 +40,23 @@ Observer.prototype = {
         });
     }
 };
-//observer
-function observe(data){
-    if(!data || typeof data !=='object'){
-        return
+
+function observe(value, vm) {
+    if (!value || typeof value !== 'object') {
+        return;
     }
+
     return new Observer(value);
 }
 
+
 var uid = 0;
 
-function Dep(){
+function Dep() {
     this.id = uid++;
     this.subs = [];
 }
+
 Dep.prototype = {
     addSub: function(sub) {
         this.subs.push(sub);
@@ -75,4 +79,5 @@ Dep.prototype = {
         });
     }
 };
+
 Dep.target = null;
